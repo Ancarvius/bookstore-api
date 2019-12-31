@@ -61,7 +61,7 @@ class Client(models.Model):
     name = models.CharField(max_length=60)
     email = models.EmailField()
     phone = models.CharField(max_length=12)
-    address = models.OneToOneField(Address, on_delete=models.CASCADE, related_name='clients')
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, null=True, related_name='clients')
 
     def __str__(self):
         return "Client: {}".format(self.name)
@@ -109,11 +109,11 @@ class Order(models.Model):
     CALC = (
        (0.0, 0.0),
     )
-
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="orders")
+    
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, related_name="orders")
     manager = models.ForeignKey(Manager, on_delete=models.CASCADE, null=True, related_name="managers")
-    credit_card = models.ForeignKey(CreditCard, on_delete=models.CASCADE, related_name="credits_cards")
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="status")
+    credit_card = models.ForeignKey(CreditCard, on_delete=models.CASCADE, null=True, related_name="credits_cards")
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, related_name="status")
     total = models.FloatField(default=0.0, choices=CALC)
     date_created = models.DateTimeField(auto_now_add=True)
 

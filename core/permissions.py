@@ -6,14 +6,49 @@ from .models import *
 class ClientPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if Client.objects.filter(email=request.user.email).exists():
-                return True
+   
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                
+                elif request.method == "POST":
                     return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
         except Client.DoesNotExist:
@@ -23,150 +58,424 @@ class ClientPermissions(permissions.BasePermission):
 class AddressPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if Client.objects.filter(email=request.user.email).exists():
-                return True
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                
+                elif request.method == "POST":
                     return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
         except Client.DoesNotExist:
             return False
-
+        
 
 class ManagerPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if request.user.is_superuser:
-                return True
-            if (Manager.objects.get(email=request.user.email).user.is_staff):
-                return True
-        except Manager.DoesNotExist:
+        try: 
+            try:
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                
+                elif request.method == "POST":
+                    if request.user.is_superuser:
+                        return True
+                
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
+            except Manager.DoesNotExist:
+                return False
+        except Client.DoesNotExist:
             return False
 
 
 class BookPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
+       
+        try: 
             try:
-                if request.user.is_superuser:
+
+                if request.method == "GET":
                     return True
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+                
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
                     return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
-        except Exception:
-            return False # AnonymousUser
+        except Client.DoesNotExist:
+            return False
 
 
 class StatusPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if request.user.is_superuser:
-                return True
-            if (Manager.objects.get(email=request.user.email).user.is_staff):
-                return True
-        except Manager.DoesNotExist:
+        try: 
+            try:
+
+                if request.method == "GET":
+                    return True
+                
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
+            except Manager.DoesNotExist:
+                return False
+        except Client.DoesNotExist:
             return False
 
 
 class GenrerPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if request.user.is_superuser:
-                return True
-            if Client.objects.filter(email=request.user.email).exists():
-                return False
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET":
                     return True
+                
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
-        except Exception:
+        except Client.DoesNotExist:
             return False
 
 
 class AuthorPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if request.user.is_superuser:
-                return True
-            if Client.objects.filter(email=request.user.email).exists():
-                return False
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET":
                     return True
+                
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
-        except Exception:
+        except Client.DoesNotExist:
             return False
 
 
 class WritePermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if request.user.is_superuser:
-                return True
-            if Client.objects.filter(email=request.user.email).exists():
-                return False
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET":
                     return True
+                
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
+                    return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
-        except Exception:
-            return False  
+        except Client.DoesNotExist:
+            return False
   
 
 class OrderPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if Client.objects.filter(email=request.user.email).exists():
-                return True
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
                     return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
         except Client.DoesNotExist:
-            return False 
+            return False
 
 
 class ItemOrderPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if Client.objects.filter(email=request.user.email).exists():
-                return True
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
                     return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
         except Client.DoesNotExist:
@@ -176,14 +485,53 @@ class ItemOrderPermissions(permissions.BasePermission):
 class CreditCardPermissions(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        try:
-            if Client.objects.filter(email=request.user.email).exists():
-                return True
+        try: 
             try:
-                if (Manager.objects.get(email=request.user.email).user.is_staff):
+
+                if request.method == "GET" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "POST" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "PUT" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "PATCH" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+                    elif Client.objects.filter(email=request.user.email).exists():
+                        return True
+
+                elif request.method == "DELETE" and request.user.is_authenticated:
+                    if request.user.is_superuser:
+                        return True
+                    elif (Manager.objects.get(email=request.user.email).user.is_staff):
+                        return True
+
+                elif request.method == "OPTIONS":
                     return True
+
+                elif request.method == "HEAD":
+                    return True
+
             except Manager.DoesNotExist:
                 return False
         except Client.DoesNotExist:
